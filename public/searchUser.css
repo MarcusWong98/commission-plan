@@ -1,0 +1,58 @@
+*{
+    box-sizing: border-box;
+}
+.username{
+    font-size: 1.5em;
+
+}
+
+.outer-div{
+    background: var(--lighter-color);
+}
+.outer-div .year{
+    /* background: white; */
+}
+
+.outer-div ul{
+    display: none;
+}
+.outer-div .show{
+    display: block;
+}
+.outer-div ul li{
+    /* width: 120px;
+    display: flex;
+    justify-content: space-between; */
+    position: relative;
+    padding: 3px;
+    font-size: 1.2em;
+}
+
+.outer-div ul li::before{
+    content: '';
+    padding: 7px;
+    position: absolute;
+    border-bottom: 2px rgb(190, 255, 10) solid;
+    /* top: 5px; */
+    bottom: 12px;
+    left: -20px;
+}
+.year{
+    font-size: 1.5em;
+}
+.month{
+    /* margin-right: 10px;
+    padding-right: 10px;
+    border-right: 1px solid lightgoldenrodyellow; */
+}
+.commission{
+    margin-left: 10px;
+    padding-left: 10px;
+    border-left: 1px solid lightgray;
+}
+.user-info{
+    background-color: var(--lighter-color);
+    padding: 18px;
+    margin-top: 30px;
+    border-radius: 10px;
+}

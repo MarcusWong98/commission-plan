@@ -1,0 +1,258 @@
+*{
+    box-sizing: border-box;
+    --default-color: #254646;
+    --lighter-color: #2d5a5a;
+    font-family: sans-serif;
+}
+body{
+    margin: 0;
+    color: white;
+    background: var(--default-color);
+    
+}
+/* button{
+    padding: 0;
+    margin: 0;
+} */
+.nav-bar{
+    background: var(--lighter-color);
+}
+a{
+    text-decoration: none;
+    color: white;
+    
+}
+ul{
+    list-style: none;
+    margin: 0;
+    /* padding-inline-start: 20px; */
+}
+
+.right-nav{
+    margin: 0;
+}
+nav{
+    /* background: var(--lighter-color); */
+    display: flex;
+    justify-content: space-between;
+}
+.wrapper{
+    padding: 3px 20px;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+nav .logo{
+    font-size: 2em;
+    padding: 8px 0;
+}
+nav .right-nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav .right-nav>*{
+    font-size: 1.2em;
+    width: 80px;
+    padding: 16px 0;
+    text-align: center;
+
+}
+nav .right-nav>*:hover{
+    background: var(--default-color);
+}
+.drop-down-menu{
+    position: relative;
+    display: inline-block;
+}
+.drop-down-button{
+    background: inherit;
+    font-size: inherit;
+    color: white;
+    outline: none;
+    border: none;
+    padding: 0;
+}
+/* .div span{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+
+} */
+
+.drop-down-content{
+    display: none;
+    font-size: 0.8em;
+    left: 0;
+    padding: 12px 16px;
+    width: 100%;
+    position: absolute;
+    background: var(--default-color);
+    text-align: start;
+}
+.drop-down-menu a:hover{
+    color: #82e730;
+}
+
+.drop-down-content a{
+    padding: 10px 0;
+    display: block;
+    border-bottom: dashed 1px white ;
+    /* text-align: center; */
+}
+.drop-down-menu:hover .drop-down-content {
+    display: block;
+}
+input::placeholder{
+    color: lightgrey;
+}
+
+form input{
+    padding: 8px 16px;
+    font-size: 1.2em;
+    margin: 8px 0;
+    border: 2px #264d4d solid;
+    border-radius: 5px;
+    outline: none;
+    background: var(--default-color);
+    color: white;
+    width: 100%;
+    transition: border 0.3s;
+}
+.input-container{
+    width: 60%;
+    max-width: 450px;
+    align-self: center;
+}
+.input-container[data-error] input{
+    border-color:#f34150;
+    color:#f34150;
+}
+.input-container[data-error]::after{
+    content: attr(data-error);
+    color: #f34150;
+    font-size: 1.2em;
+    
+}
+.drop-down-menu:hover{
+    background: var(--lighter-color);
+}
+
+form{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    background: var(--lighter-color);
+    border-radius: 10px;
+    padding: 18px 0;
+}
+form>*:not(div), .commissionDiv{
+    align-self: center;
+    padding: 8px 16px;
+    font-size: 1.2em;
+    margin: 8px;
+    border: 2px #264d4d solid;
+    border-radius: 5px;
+    outline: none;
+}
+form select{
+    outline: none;
+    background: var(--default-color);
+    color: white;
+
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    background-image: url("data:image/svg+xml;utf8,<svg xmins = 'http://www.w3.org/2000/svg'><polygon points = '0,0 100,0 0 50,50' style='fill:%23666666;'/></svg>");
+    background-repeat: no-repeat;
+    background-size: 10px;
+}
+
+form select:hover{
+    cursor: pointer;
+    background: var(--lighter-color);
+}
+form select option{
+    border: none;
+    outline: none;
+    background: var(--default-color);
+}
+form select:focus option{
+    border: none;
+    outline: none;
+    background: var(--default-color);
+}
+form>button:hover{
+    cursor: pointer;
+    background: #2f6868;
+}
+
+form>button{
+    /* width: 100px; */
+    background: var(--default-color);
+    color: white;
+    outline: none;
+    text-align: center;
+}
+form .input-container input:focus{
+    border: 2px solid #6bc91e;
+}
+.commissionDiv{
+    display: none;
+    padding: 30px;
+    /* font-size: 1.2em; */
+}
+
+.subCal-box:last-of-type(){
+    color: red;
+    /* border-bottom: 1px white solid; */
+}
+.commissionDiv-show{
+    display: block;
+}
+.last-cal{
+    border-bottom: 1px solid white;
+}
+.subCal-box{
+    display: flex;
+    margin: 8px 0;
+    position: relative;
+    width: 200px;
+    height: 30px;
+    /* padding: 10px; */
+}
+.multiplier{
+    position: absolute;
+    left: 0;
+    /* margin-right: 30px; */
+}
+.multipliee{
+    position: absolute;
+    right: 0%;
+}
+
+.result{
+    float: right;
+}
+
+@media (min-width: 1200px){
+    *{
+        font-size: 20px;
+    }
+    
+    nav .right-nav>*{
+        width: 100px;
+    }
+    .drop-down-content{
+        padding: 12px 20px;
+    }
+}
+
+@media (min-width: 1600px){
+    /* .wrapper{
+        max-width: 1800px;
+    } */
+   
+}

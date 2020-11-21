@@ -1,0 +1,40 @@
+<div class="nav-bar">
+    <nav class="wrapper">
+    
+        <div class="logo">Commission Cal</div>
+        <div class="right-nav">
+            <%if(data.allUser != null){%>
+        
+                
+                <div class = 'drop-down-menu' id = 'tap-to-show'>
+    
+                    <button class = 'drop-down-button' id = 'users-div'>users</button>
+                    <div class = 'drop-down-content'>
+                        <% data.allUser.forEach(user => { %>
+                            <a href="/searchUser?username=<%= user.name%>"><%= user.name%></a>
+                        <% }); %>
+                    </div>
+                    
+                </div>
+                <a href="/logout">logout</a>
+                
+                    
+               
+                
+            <%}else if(data.user){%>
+                <a href="/logout">logout</a>
+            <%}else{%>
+                <% if(data.onLogin){ %>
+                    <a href="/sign-in">register</a>
+                <%}else{%>
+                    <a href="/login">login </a>
+                <%} %> 
+            <%}%>
+                
+                
+                
+
+            
+        </div>
+    </nav>
+</div>

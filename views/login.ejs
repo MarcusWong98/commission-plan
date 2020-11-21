@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="main.css" rel="stylesheet">
+    </head>
+    <body>
+        
+            <%- include('./partials/nav.ejs')  %> 
+
+            <% if(messages.error){ %>
+                <h3><%= messages.error  %> </h3> 
+            <% } %> 
+            
+
+            <div class="wrapper">
+                <form action="/login" method="POST">
+                <div class="input-container">
+                    <input placeholder="Username" name = 'username' required = 'true'>
+                </div>
+                <div class="input-container">
+                    <input placeholder="Password" name = 'password' required = 'true'>
+                </div>
+                
+                
+                <button type="submit">Sumbit</button>
+                </form>
+
+                <h2><a href="/sign-in">No account?</a></h2>
+            </div>
+            
+            
+        
+    
+    <script>
+       
+    </script>
+    </body>
+</html>

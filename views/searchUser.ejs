@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="searchUser.css" rel="stylesheet">
+        <link href="main.css" rel="stylesheet">
+    </head>
+    <body>
+        
+        <%- include('./partials/nav.ejs') %> 
+        
+        <div class="wrapper">
+            <div class="user-info">
+                <% if(data.user != null){ %>
+                    <div class = 'username'><%= `user:${data.user.name}` %> </div>
+                <%} %>
+                    
+                <% if(data.commissionFiles){ %>
+                    <% for(const[key, value] of Object.entries(data.commissionFiles)){ %>
+                        <div class = 'outer-div'>
+                            <div class = 'year' onclick="show()"><%= key%></div>
+                            <ul>
+                                <% data.commissionFiles[key].forEach(commission => { %>
+                                    <li><span class = 'month'><%= commission.month%></span><span class="commission"><%= commission.commission%></span> </li>
+                                <%}) %> 
+                            </ul>
+        
+                        </div>
+                    <% } %> 
+                <%} %> 
+            </div>
+           
+        </div>
+        
+        
+        <script>
+            // const test = document.getElementById('search-bar');
+            function show(){
+                console.log(event.target.nextElementSibling );
+
+                if(event.target.nextElementSibling.className === ''){
+                    event.target.nextElementSibling.className = 'show';
+                }else{
+                    event.target.nextElementSibling.className = '';
+                }
+                
+            }
+            
+        </script>
+    </body>
+</html>

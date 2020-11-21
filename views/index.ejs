@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="main.css" rel="stylesheet">
+    </head>
+    <body>
+        
+            
+            
+
+            <%- include('./partials/nav.ejs') %> 
+            
+            <% if(data != null) { %>
+                <div class="wrapper">
+                    <!-- <h2>Hi, <%= data.user.name %> </h2> -->
+                    <form action="/" method="POST" id='commission-form'>
+                        <select placeholder="test" name = 'username' type='select' class = 'select-user'>
+                            <option disabled selected>User</option>
+                            <% data.allUser.forEach(user => { %>
+                                <option value="<%= user.name%>"><%= user.name  %> </option>
+                            <% }); %> 
+                            
+                        </select>
+                        <div class="input-container">
+                            <input type="month" name = 'date' required class = 'input-month'>
+                        </div>
+                        <div class="input-container">
+                            <input placeholder="Commission" name='profit' id = 'profit' type="number" required class="input-profit">
+                        </div>
+       
+                        
+                        <input type="hidden" id = 'commission' name = 'commission' required>
+                        <button id = 'onChange' onclick="ToCommission()">Cal</button>
+                        <div id = 'commissionDiv' class="commissionDiv"></div>
+                        <button type="submit" onclick="showErrMsg()">Sumbit</button>
+                    </form>
+                </div>
+    
+            <% }else{ %>
+                
+                <form action="/">
+                    <input placeholder="Search your employee" name = 'username'>
+                    <input placeholder="Password" name = 'password'>
+                    <input placeholder="Commission" name='profit' id = 'profit' type="number">
+                    <input type="hidden" id = 'commission' name = 'commission'>
+                    <button id = 'onChange' onclick="ToCommission()">test</button>
+                    <div id = 'commissionDiv'></div>
+                    <div>testing</div>
+                    <button type="submit"><a href="/login">Sumbit</a></button>
+                </form>
+
+            <% } %> 
+            
+        
+        <script src="https://js.stripe.com/v3/" defer></script>
+
+        <script>
+            // const test = document.getElementById('search-bar');
+            // import cal from '../functions/cal.js';
+
+            
+
+            let value = 0;
+
+            let calculation = [];
+
+            function ToCommission(){
+
+                event.preventDefault();
+
+                const earningsInput = document.getElementById('profit');
+                const commissionDiv = document.getElementById('commissionDiv');
+                const commissionInput = document.getElementById('commission');
+
+                value = 0;
+
+                calculation = [];
+
+                commissionDiv.innerHTML = '';
+
+                showErrMsg(() => {
+                    cal(earningsInput.value, 20);
+
+                    commissionInput.value = value;
+
+                    // calculation.forEach(cal => {
+                    //     commissionDiv.innerHTML += cal.genHtml();
+                        
+                    //     console.log(cal.genHtml());
+                    //     // console.log('er:' + cal.multiplier);
+                    //     // console.log('ee:' + cal.multipliee);
+                    // })
+
+                    for(let i = 0; i < calculation.length; i++){
+
+
+                        if(i === (calculation.length - 1)){
+
+                            commissionDiv.innerHTML += calculation[i].genHtml('last-cal');
+
+                            console.log('last-calc');
+
+                            
+                        }else{
+                            commissionDiv.innerHTML += calculation[i].genHtml('');
+
+                            console.log('calcing');
+                        }
+                        
+                        
+                    }
+
+                    commissionDiv.innerHTML += `<div class = 'result'>${value}</div>`;
+
+                    if(commissionDiv.className === 'commissionDiv-show'){
+                        return
+                    }else{
+                        commissionDiv.className += ' commissionDiv-show';
+                    }
+                });
+
+                // if(earningsInput.value){
+                    
+                // }
+                
+                
+                
+            }
+
+            
+            
+            function cal(origin, multiplier){
+
+                const limit = 28;
+
+                if(origin > 30000){
+
+                    // calculation.push(new SubCal(multiplier,30000));
+                    
+                    // value += multiplier > 0.28 ? (30000*limit) : (30000 * multiplier);
+
+                    // multiplier += 0.04;
+
+                    // console.log(value);
+
+                    // origin -= 30000;
+
+                    // cal(origin, multiplier);
+
+                    if(multiplier >= limit){
+                        value += (origin*limit/100);
+                        
+                        calculation.push(new SubCal(limit, origin));
+
+                        // console.log('over limit');
+                    }else{
+                        calculation.push(new SubCal(multiplier,30000));
+
+                        value += multiplier * 30000/100; 
+
+                        multiplier = multiplier + 4; 
+
+                        // multiplier = parseFloat(multiplier.toPrecision(4));
+
+                        // multiplier = multiplier + 0.04;
+
+                        console.log(value);
+
+                        origin -= 30000;
+
+                        cal(origin, multiplier);
+
+                        // console.log('routine');
+                    }
+                    
+
+                }else{
+                    
+                    if(multiplier >= limit){
+                        value += (origin*limit/100);
+                        
+                        calculation.push(new SubCal(limit,origin));
+
+                        // console.log('over limit and over 30000');
+                        // return
+                    }else{
+                        calculation.push(new SubCal(multiplier,origin));
+                        value += (origin*multiplier/100);
+
+                        // console.log('under limit and under 30000');
+                    }
+                        
+                    
+                    
+                    // value += multiplier > 0.28 ? (origin*0.28) : (origin*multiplier);
+                }
+
+            }
+
+            function showErrMsg(func){
+
+                // console.log(event.target.className);
+
+                let inputs = document.querySelectorAll('.input-container');
+
+                inputs = Array.from(inputs);
+                
+                if(inputs.every((input) => input.firstElementChild.value !== '')){
+                    console.log('working');
+                    inputs.forEach(input => {
+                        input.removeAttribute('data-error');
+                    })
+
+                    func();
+                    return;
+                };
+
+                // for(let i = 0; i < inputs.length; i++){
+                    
+
+                // }
+
+                inputs.forEach(input => {
+                    input.removeAttribute('data-error');
+                    console.log(input.firstElementChild.value);
+                    if(input.firstElementChild.value !== ''){
+
+                        console.log('ys');
+                        
+                        return;
+                    }
+                    
+                    console.log('no');
+                    input.setAttribute('data-error', 'This must not be empty.');
+                })
+                
+
+                // event.preventDefault();
+            }
+
+            // if(multiplier > limit){
+            //             value += (origin*limit);
+                        
+            //             calculation.push(new SubCal(limit, origin));
+
+            //             return 
+            //         }
+
+            //         calculation.push(new SubCal(multiplier,30000));
+
+            //         multiplier += 0.04;
+
+            //         console.log(value);
+
+            //         origin -= 30000;
+
+            //         cal(origin, multiplier);
+
+            class SubCal{
+                constructor(multiplier,multipliee){
+                    this.multiplier = multiplier;
+                    this.multipliee = multipliee;
+                }
+
+                genHtml(className){
+                    return `<div class = 'subCal-box ${className}'><div class = 'multiplier'>${this.multiplier}%</div><div class = 'multipliee'>${this.multipliee}</div></div>`;
+                }
+            }
+
+            // function tap(){
+            //     const tapToShow = document.getElementById('tap-to-show');
+
+            //     const usersDiv = tapToShow.querySelector('#user-div');
+
+            //     // tapToShow.childNodes.forEach(span => {
+            //     //     span.style = 'position: unset';
+            //     //     console.log(span.style);
+            //     // })
+
+            //     for(let i = 0; i < tapToShow.children.length; i++){
+
+            //         if(i > 0){
+            //             console.log(tapToShow.children[i]);
+            //             // tapToShow.children[i].style = 'position: unset;display:flex;flex-direction:column;';
+            //         }
+            //         // else{
+            //         //     tapToShow.children[i].style = 'position: relative; padding: 10px 10px 20px 10px;';
+            //         //     tapToShow.parentElement.style.padding = '0';
+            //         //     // tapToShow.children[i].style.width= '1px';
+            //         // }
+                    
+            //     }
+
+            //     console.log('tapping');
+            // }
+            // function test(){
+            //     event.preventDefault();
+            //     console.log('testing');
+            // }
+        </script>
+    </body>
+</html>
